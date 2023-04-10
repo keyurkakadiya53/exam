@@ -6,15 +6,19 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import CheckBox from 'react-native-check-box';
 import React, {useState} from 'react';
 import UserImage from './../rec/user1.png';
 import Tab1 from './../rec/tab1.png';
 import Tab2 from './../rec/tab2.png';
 import Tab3 from './../rec/tab3.png';
 import Tab4 from './../rec/tab4.png';
+import Logo1 from './../rec/logo1.png';
+import TimeLogo from './../rec/timeLogo.png';
 
 const page1 = () => {
   const [isEnabled, setisEnabled] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
   return (
     <View style={{backgroundColor: '#0d2b3f', flex: 1}}>
       <View style={{marginTop: 25, paddingHorizontal: 20}}>
@@ -117,22 +121,44 @@ const page1 = () => {
           borderRadius: 10,
           marginTop: 20,
           marginHorizontal: 20,
-          padding: 14,
-          flexDirection: 'row',
+          paddingHorizontal: 14,
+          paddingVertical: 7,
+          flexDirection: 'column',
           justifyContent: 'space-between',
         }}>
+        <View style={{flexDirection: 'row'}}>
+          <View style={{flexDirection: 'row'}}>
+            <Image source={Logo1} style={{width: 30, height: 30}}></Image>
+            <View style={{marginLeft: 5}}>
+              <Text style={{color: 'white', fontWeight: 'bold', fontSize: 14}}>
+                Jane Cooper
+              </Text>
+              <Text style={{color: 'white', fontSize: 11, marginTop: 0}}>
+                jane.cooper@example.com
+              </Text>
+            </View>
+          </View>
+          <View>
+            <CheckBox
+              onClick={() => {
+                setIsChecked(previousState => !previousState);
+              }}
+              checkBoxColor="white"
+            />
+          </View>
+        </View>
         <View>
-          <Text style={{color: 'white', fontWeight: 'bold', fontSize: 16}}>
-            Cameron Williamson
-          </Text>
-          <Text style={{color: 'white', fontSize: 12, marginTop: 5}}>
-            +91 9876543210
-          </Text>
-          <Text style={{color: '#50c833', fontSize: 12, marginTop: 5}}>
-            Rs. 10,000.00
+          <Text style={{color: 'white', fontSize: 11, marginTop: 5}}>
+            Lorem text Lorem text Lorem text Lorem text Lorem text Lorem text
+            Lorem text Lorem text..
           </Text>
         </View>
-        <View></View>
+        <View style={{marginTop: 5, flexDirection: 'row'}}>
+          <Image source={TimeLogo} style={{width: 12, height: 12}}></Image>
+          <Text style={{color: 'white', fontSize: 11, marginLeft: 5}}>
+            28/06/2022 10:00 AM
+          </Text>
+        </View>
       </View>
     </View>
   );
