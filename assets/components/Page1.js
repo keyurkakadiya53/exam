@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Switch,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -23,6 +24,8 @@ import TimeLogo from './../rec/timeLogo.png';
 const page1 = () => {
   const [isEnabled, setisEnabled] = useState(false);
   const [btnNo, setbtnNo] = useState(0);
+  const [title, setTitle] = useState('');
+  const [desc, setDesc] = useState('');
   const [data, setdata] = useState([
     {
       name: 'Jane Cooper',
@@ -52,6 +55,7 @@ const page1 = () => {
       image: Logo3,
     },
   ]);
+  const [list, setlist] = useState([]);
   const MsgItem = (item, index) => (
     <View style={styles.msgView}>
       <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
@@ -69,11 +73,6 @@ const page1 = () => {
             isChecked={item.isChecked}
             onClick={() => {
               setdata(prev => {
-                console.log(
-                  prev.map((val, i) =>
-                    i == index ? {...val, isChecked: !val.isChecked} : val,
-                  ),
-                );
                 return prev.map((val, i) =>
                   i == index ? {...val, isChecked: !val.isChecked} : val,
                 );
@@ -94,6 +93,25 @@ const page1 = () => {
           {item.datetime}
         </Text>
       </View>
+    </View>
+  );
+
+  const GoalItem = item => (
+    <View
+      style={{
+        marginTop: 20,
+        marginHorizontal: 20,
+        flexDirection: 'column',
+        borderColor: '#334b5f',
+        borderWidth: 1,
+        borderRadius: 5,
+        padding: 10,
+      }}>
+      <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+        <Text style={{color: 'white', fontSize: 14}}>{item.title}</Text>
+        <Text style={{color: 'white', fontSize: 12}}>{item.time}</Text>
+      </View>
+      <Text style={{color: 'white', fontSize: 14}}>{item.desc}</Text>
     </View>
   );
 
@@ -210,6 +228,57 @@ const page1 = () => {
           Add Todo's
         </Text>
       </View>
+      <View
+        style={{marginHorizontal: 20, flexDirection: 'column', marginTop: 20}}>
+        <Text style={{color: 'white', fontSize: 14}}>Title</Text>
+        <TextInput
+          placeholder="Enter Title"
+          placeholderTextColor="#8e9aad"
+          value={title}
+          onChangeText={text => {
+            setTitle(text);
+          }}
+          style={styles.goalTextInput}
+        />
+      </View>
+      <View
+        style={{marginHorizontal: 20, flexDirection: 'column', marginTop: 20}}>
+        <Text style={{color: 'white', fontSize: 14}}>Description</Text>
+        <TextInput
+          placeholder="Enter Description"
+          placeholderTextColor="#8e9aad"
+          value={desc}
+          onChangeText={text => setDesc(text)}
+          style={styles.goalTextInput}></TextInput>
+      </View>
+      <View
+        style={{
+          marginTop: 20,
+          marginHorizontal: 20,
+        }}>
+        <TouchableOpacity
+          style={{
+            backgroundColor: '#50c833',
+            width: '100%',
+            padding: 12,
+            borderRadius: 4,
+            alignItems: 'center',
+          }}
+          onPress={() => {
+            const date = new Date();
+            const time = `${date.getHours()} : ${date.getMinutes()} AM`;
+            setlist(prev => [...prev, {title: title, desc: desc, time: time}]);
+            setTitle('');
+            setDesc('');
+            console.log('Title', title);
+            console.log('Desc', desc);
+            console.log(list);
+          }}>
+          <Text style={{color: 'white', fontSize: 16, fontWeight: 'bold'}}>
+            ADD
+          </Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
   const Tab4 = () => (
@@ -231,6 +300,7 @@ const page1 = () => {
           Todo's
         </Text>
       </View>
+      <FlatList data={list} renderItem={({item}) => GoalItem(item)} />
     </View>
   );
   return (
@@ -293,38 +363,70 @@ const page1 = () => {
         }}>
         <View style={styles.tabView}>
           <TouchableOpacity
-            style={styles.tabTouchable}
+            style={[
+              styles.tabTouchable,
+              {backgroundColor: btnNo == 0 ? '#50c833' : '#334b5f'},
+            ]}
             onPress={() => {
               setbtnNo(0);
             }}>
-            <Image source={Tab1Image} style={styles.tabImage}></Image>
+            <Image
+              source={Tab1Image}
+              style={[
+                styles.tabImage,
+                {tintColor: btnNo == 0 ? 'white' : '#8e9aad'},
+              ]}></Image>
           </TouchableOpacity>
         </View>
         <View style={styles.tabView}>
           <TouchableOpacity
-            style={styles.tabTouchable}
+            style={[
+              styles.tabTouchable,
+              {backgroundColor: btnNo == 1 ? '#50c833' : '#334b5f'},
+            ]}
             onPress={() => {
               setbtnNo(1);
             }}>
-            <Image source={Tab2Image} style={styles.tabImage}></Image>
+            <Image
+              source={Tab2Image}
+              style={[
+                styles.tabImage,
+                {tintColor: btnNo == 1 ? 'white' : '#8e9aad'},
+              ]}></Image>
           </TouchableOpacity>
         </View>
         <View style={styles.tabView}>
           <TouchableOpacity
-            style={styles.tabTouchable}
+            style={[
+              styles.tabTouchable,
+              {backgroundColor: btnNo == 2 ? '#50c833' : '#334b5f'},
+            ]}
             onPress={() => {
               setbtnNo(2);
             }}>
-            <Image source={Tab3Image} style={styles.tabImage}></Image>
+            <Image
+              source={Tab3Image}
+              style={[
+                styles.tabImage,
+                {tintColor: btnNo == 2 ? 'white' : '#8e9aad'},
+              ]}></Image>
           </TouchableOpacity>
         </View>
         <View style={styles.tabView}>
           <TouchableOpacity
-            style={styles.tabTouchable}
+            style={[
+              styles.tabTouchable,
+              {backgroundColor: btnNo == 3 ? '#50c833' : '#334b5f'},
+            ]}
             onPress={() => {
               setbtnNo(3);
             }}>
-            <Image source={Tab4Image} style={styles.tabImage}></Image>
+            <Image
+              source={Tab4Image}
+              style={[
+                styles.tabImage,
+                {tintColor: btnNo == 3 ? 'white' : '#8e9aad'},
+              ]}></Image>
           </TouchableOpacity>
         </View>
       </View>
@@ -350,7 +452,6 @@ const styles = StyleSheet.create({
   },
   tabTouchable: {
     borderRadius: 7,
-    backgroundColor: '#334b5f',
     justifyContent: 'center',
     alignItems: 'center',
     padding: 22,
@@ -358,7 +459,6 @@ const styles = StyleSheet.create({
   tabImage: {
     height: 20,
     width: 20,
-    tintColor: '#8e9aad',
     zIndex: 2,
   },
   msgView: {
@@ -370,5 +470,14 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     flexDirection: 'column',
     justifyContent: 'space-between',
+  },
+  goalTextInput: {
+    borderRadius: 4,
+    borderWidth: 1,
+    padding: 12,
+    borderColor: '#8e9aad',
+    backgroundColor: '#334b5f',
+    marginTop: 5,
+    color: 'white',
   },
 });
