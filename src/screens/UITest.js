@@ -1,7 +1,6 @@
 import {
   FlatList,
   Image,
-  ScrollView,
   StyleSheet,
   Switch,
   Text,
@@ -11,15 +10,15 @@ import {
 } from 'react-native';
 import CheckBox from 'react-native-check-box';
 import React, {useState} from 'react';
-import UserImage from './../rec/user1.png';
-import Tab1Image from './../rec/tab1.png';
-import Tab2Image from './../rec/tab2.png';
-import Tab3Image from './../rec/tab3.png';
-import Tab4Image from './../rec/tab4.png';
-import Logo1 from './../rec/logo1.png';
-import Logo2 from './../rec/logo2.png';
-import Logo3 from './../rec/logo3.png';
-import TimeLogo from './../rec/timeLogo.png';
+import UserImage from './../../assets/images/user1.png';
+import Tab1Image from './../../assets/images/tab1.png';
+import Tab2Image from './../../assets/images/tab2.png';
+import Tab3Image from './../../assets/images/tab3.png';
+import Tab4Image from './../../assets/images/tab4.png';
+import Logo1 from './../../assets/images/logo1.png';
+import Logo2 from './../../assets/images/logo2.png';
+import Logo3 from './../../assets/images/logo3.png';
+import TimeLogo from './../../assets/images/timeLogo.png';
 
 const page1 = () => {
   const [isEnabled, setisEnabled] = useState(false);
