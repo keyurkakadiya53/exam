@@ -15,8 +15,8 @@ import {
   TextInput,
   VirtualizedList,
 } from 'react-native';
-import React, {useState} from 'react';
-import {isEnabled} from 'react-native/Libraries/Performance/Systrace';
+import React, { useState } from 'react';
+import { isEnabled } from 'react-native/Libraries/Performance/Systrace';
 
 const DATA = [
   {
@@ -75,9 +75,9 @@ const HomeScreen = () => {
         </TouchableOpacity>
         <FlatList
           data={DATA}
-          renderItem={({item}) => (
+          renderItem={({ item }) => (
             <Pressable
-              style={{backgroundColor: item.color}}
+              style={{ backgroundColor: item.color }}
               onPress={() => {
                 setshow(!show);
               }}>
@@ -91,7 +91,7 @@ const HomeScreen = () => {
           )}></FlatList>
 
         <Switch
-          thumbColor={{false: 'pink', true: 'blue'}}
+          thumbColor={{ false: 'pink', true: 'blue' }}
           trackColor={isEnabled ? 'red' : 'aqua'}
           onValueChange={changeToggle}
           value={isEnabled}></Switch>
@@ -111,11 +111,11 @@ const HomeScreen = () => {
           return item[index];
         }}
         getItemCount={data => 1}
-        renderItem={({item}) => {
+        renderItem={({ item }) => {
           console.log('iiiii', item);
           return (
             <Pressable
-              style={{backgroundColor: item.color}}
+              style={{ backgroundColor: item.color }}
               onPress={() => {
                 setshow(!show);
               }}>

@@ -5,6 +5,15 @@ import LoginScreen from './LoginPractice';
 
 const WelcomeScreen = ({navigation}) => {
   const str = 'kdsfjnaklsf';
+  React.useEffect(() => {
+    const unsubscribe = navigation.addListener('transitionStart', e => {
+      // Do something
+      console.log('transition start');
+      console.log('boolean : ', e.data.closing);
+    });
+
+    return unsubscribe;
+  }, [navigation]);
 
   return (
     <>
@@ -26,6 +35,9 @@ const WelcomeScreen = ({navigation}) => {
             <Text style={{color: 'white'}}>Sign In</Text>
           </TouchableOpacity>
           <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('TabBar');
+            }}
             style={[styles.btnLogIn, {backgroundColor: 'white'}]}>
             <Text style={{color: 'black'}}>Sign Up</Text>
           </TouchableOpacity>

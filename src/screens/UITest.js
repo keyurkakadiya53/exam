@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import CheckBox from 'react-native-check-box';
 import {RFPercentage, RFValue} from 'react-native-responsive-fontsize';
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import React, {useState} from 'react';
 import UserImage from './../../assets/images/user1.png';
 import Tab1Image from './../../assets/images/tab1.png';
@@ -21,7 +22,9 @@ import Logo2 from './../../assets/images/logo2.png';
 import Logo3 from './../../assets/images/logo3.png';
 import TimeLogo from './../../assets/images/timeLogo.png';
 
-const page1 = () => {
+const Tab = createMaterialTopTabNavigator();
+
+const UITest = () => {
   const [isEnabled, setisEnabled] = useState(false);
   const [btnNo, setbtnNo] = useState(0);
   const [title, setTitle] = useState('');
@@ -149,8 +152,8 @@ const page1 = () => {
     </View>
   );
   const Tab1 = () => (
-    <View>
-      <View style={{marginHorizontal: 20, flexDirection: 'row'}}>
+    <View style={{backgroundColor: '#0D2A3F'}}>
+      <View style={{flexDirection: 'row', marginTop: 20}}>
         <View
           style={{
             backgroundColor: '#50c833',
@@ -344,7 +347,7 @@ const page1 = () => {
             }}></Switch>
         </View>
       </View>
-      <View
+      {/* <View
         style={{
           margin: 20,
           flexDirection: 'row',
@@ -418,8 +421,8 @@ const page1 = () => {
               ]}></Image>
           </TouchableOpacity>
         </View>
-      </View>
-      {btnNo == 0 ? (
+      </View> */}
+      {/* {btnNo == 0 ? (
         <Tab1 />
       ) : btnNo == 1 ? (
         <Tab2 />
@@ -427,23 +430,137 @@ const page1 = () => {
         <Tab3 />
       ) : (
         <Tab4 />
-      )}
+      )} */}
+
+      <View style={{flex: 1, marginHorizontal: 20, marginTop: 5}}>
+        <Tab.Navigator
+          sceneContainerStyle={{backgroundColor: '#0D2A3F'}}
+          screenOptions={{
+            tabBarStyle: {
+              backgroundColor: '#0D2A3F',
+              height: 100,
+            },
+            tabBarItemStyle: {height: 85},
+            tabBarIndicatorStyle: {columnGap: 15},
+            tabBarShowLabel: false,
+            tabBarIndicatorStyle: {backgroundColor: 'transparent'},
+          }}>
+          <Tab.Screen
+            name="Explore"
+            component={Tab1}
+            options={() => ({
+              tabBarIcon: ({focused}) => {
+                return (
+                  <View
+                    style={[
+                      styles.tabTouchable,
+                      {backgroundColor: focused ? '#50c833' : '#334b5f'},
+                    ]}>
+                    <Image
+                      source={Tab1Image}
+                      style={[
+                        styles.tabImage,
+                        {tintColor: focused ? 'white' : '#8e9aad'},
+                      ]}></Image>
+                  </View>
+                );
+              },
+            })}
+          />
+          <Tab.Screen
+            name="SelExplore"
+            component={Tab2}
+            options={() => ({
+              tabBarIcon: ({focused}) => {
+                return (
+                  <View
+                    style={[
+                      styles.tabTouchable,
+                      {backgroundColor: focused ? '#50c833' : '#334b5f'},
+                    ]}
+                    onPress={() => {
+                      setbtnNo(1);
+                    }}>
+                    <Image
+                      source={Tab2Image}
+                      style={[
+                        styles.tabImage,
+                        {tintColor: focused ? 'white' : '#8e9aad'},
+                      ]}></Image>
+                  </View>
+                );
+              },
+            })}
+          />
+          <Tab.Screen
+            name="AddToDo"
+            component={Tab3}
+            options={() => ({
+              tabBarIcon: ({focused}) => {
+                return (
+                  <View
+                    style={[
+                      styles.tabTouchable,
+                      {backgroundColor: focused ? '#50c833' : '#334b5f'},
+                    ]}
+                    onPress={() => {
+                      setbtnNo(2);
+                    }}>
+                    <Image
+                      source={Tab3Image}
+                      style={[
+                        styles.tabImage,
+                        {tintColor: focused ? 'white' : '#8e9aad'},
+                      ]}></Image>
+                  </View>
+                );
+              },
+            })}
+          />
+          <Tab.Screen
+            name="ToDo"
+            component={Tab4}
+            options={() => ({
+              tabBarIcon: ({focused}) => {
+                return (
+                  <View
+                    style={[
+                      styles.tabTouchable,
+                      {backgroundColor: focused ? '#50c833' : '#334b5f'},
+                    ]}
+                    onPress={() => {
+                      setbtnNo(3);
+                    }}>
+                    <Image
+                      source={Tab4Image}
+                      style={[
+                        styles.tabImage,
+                        {tintColor: focused ? 'white' : '#8e9aad'},
+                      ]}></Image>
+                  </View>
+                );
+              },
+            })}
+          />
+        </Tab.Navigator>
+      </View>
     </View>
   );
 };
 
-export default page1;
+export default UITest;
 
 const styles = StyleSheet.create({
   tabView: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    alignSelf: 'center',
   },
   tabTouchable: {
     borderRadius: 7,
+    alignSelf: 'center',
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 22,
+    padding: 25,
   },
   tabImage: {
     height: 20,
@@ -454,7 +571,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#334b5f',
     borderRadius: 10,
     marginTop: 20,
-    marginHorizontal: 20,
     paddingHorizontal: 12,
     paddingVertical: 6,
     flexDirection: 'column',
