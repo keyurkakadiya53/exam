@@ -1,5 +1,6 @@
 import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+<<<<<<< Updated upstream
 import Practice from './src/screens/Practice';
 import WelcomeScreen from './src/screens/WelcomeScreen';
 import LoginScreen from './src/screens/LoginPractice';
@@ -20,6 +21,18 @@ const App = () => {
         <Stack.Screen name="Home" component={UITest} />
       </Stack.Navigator>
     </NavigationContainer>
+=======
+import HomeScreen from './assets/components/HomeScreen';
+import WelcomeScreen from './assets/components/WelcomeScreen';
+import Page1 from './assets/components/Page1';
+import LifeCycle from './assets/components/LifeCycle';
+
+const App = () => {
+  return (
+    <SafeAreaView style={{flex: 1}}>
+      <LifeCycle />
+    </SafeAreaView>
+>>>>>>> Stashed changes
   );
 };
 

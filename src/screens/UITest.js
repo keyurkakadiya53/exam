@@ -9,6 +9,7 @@ import {
   View,
 } from 'react-native';
 import CheckBox from 'react-native-check-box';
+import {RFPercentage, RFValue} from 'react-native-responsive-fontsize';
 import React, {useState} from 'react';
 import UserImage from './../../assets/images/user1.png';
 import Tab1Image from './../../assets/images/tab1.png';
