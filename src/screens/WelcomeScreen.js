@@ -36,7 +36,7 @@ const WelcomeScreen = ({navigation}) => {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('TabBar');
+              navigation.navigate('DrawerNavExp');
             }}
             style={[styles.btnLogIn, {backgroundColor: 'white'}]}>
             <Text style={{color: 'black'}}>Sign Up</Text>
