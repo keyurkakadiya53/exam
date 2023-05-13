@@ -8,132 +8,30 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import CheckBox from 'react-native-check-box';
+// import CheckBox from 'react-native-check-box';
+import CheckBox from '@react-native-community/checkbox';
 import LinearGradient from 'react-native-linear-gradient';
 
-import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import React, { useState } from 'react';
+import {RFPercentage, RFValue} from 'react-native-responsive-fontsize';
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import React, {useState, useEffect} from 'react';
 import UserImage from './../../assets/images/user1.png';
 import Tab1Image from './../../assets/images/tab1.png';
 import Tab2Image from './../../assets/images/tab2.png';
 import Tab3Image from './../../assets/images/tab3.png';
 import Tab4Image from './../../assets/images/tab4.png';
-import Logo1 from './../../assets/images/logo1.png';
-import Logo2 from './../../assets/images/logo2.png';
-import Logo3 from './../../assets/images/logo3.png';
-import TimeLogo from './../../assets/images/timeLogo.png';
+import Tab1 from './TabNavigationScreens/Tab1';
+import Tab2 from './TabNavigationScreens/Tab2';
+import {useDispatch, useSelector} from 'react-redux';
 
 const Tab = createMaterialTopTabNavigator();
 
 const UITest = () => {
+  const dispatch = useDispatch();
   const [isEnabled, setisEnabled] = useState(false);
-  const [btnNo, setbtnNo] = useState(0);
   const [title, setTitle] = useState('');
   const [desc, setDesc] = useState('');
-  const [data, setdata] = useState([
-    {
-      name: 'Jane Cooper',
-      email: 'jane.cooper@example.com',
-      discription:
-        'Lorem text Lorem text Lorem text Lorem text Lorem text Lorem text Lorem text Lorem text Lorem text ',
-      datetime: '28/06/2022 10:00 AM',
-      ischecked: false,
-      image: Logo1,
-    },
-    {
-      name: 'Hellena John',
-      email: 'hellena.john@example.com',
-      discription:
-        'Lorem text Lorem text Lorem text Lorem text Lorem text Lorem text Lorem text Lorem text Lorem text ',
-      datetime: '28/06/2022 10:00 AM',
-      ischecked: false,
-      image: Logo2,
-    },
-    {
-      name: 'Hellen Jummy',
-      email: 'hellen.jummy@example.com',
-      discription:
-        'Lorem text Lorem text Lorem text Lorem text Lorem text Lorem text Lorem text Lorem text Lorem text ',
-      datetime: '28/06/2022 10:00 AM',
-      ischecked: false,
-      image: Logo3,
-    },
-  ]);
   const [list, setlist] = useState([]);
-  const MsgItem = (item, index) => (
-    <View style={styles.msgView}>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-        <View style={{ flexDirection: 'row' }}>
-          <Image source={item.image} style={{ width: 30, height: 30 }}></Image>
-          <View style={{ marginLeft: 5 }}>
-            <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 14 }}>
-              {item.name}
-            </Text>
-            <Text style={{ color: 'white', fontSize: 10 }}>{item.email}</Text>
-          </View>
-        </View>
-        <View>
-          <CheckBox
-            isChecked={item.ischecked}
-            onClick={() => {
-              setdata(prev => {
-                return prev.map((val, i) => {
-                  console.log(i == index);
-                  return i == index ? { ...val, ischecked: !val.ischecked } : val;
-                });
-              });
-            }}
-            checkBoxColor="white"
-          />
-        </View>
-      </View>
-      <View>
-        <Text style={{ color: 'white', fontSize: 10, marginTop: 5 }}>
-          {item.discription}
-        </Text>
-      </View>
-      <View style={{ marginTop: 5, flexDirection: 'row', alignItems: 'center' }}>
-        <Image source={TimeLogo} style={{ width: 12, height: 12 }}></Image>
-        <Text style={{ color: 'white', fontSize: 11, marginLeft: 5 }}>
-          {item.datetime}
-        </Text>
-      </View>
-    </View>
-  );
-
-  const MsgItem2 = (item, index) => {
-    console.log('item', item);
-    return item.ischecked ? (
-      <View style={styles.msgView}>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-          <View style={{ flexDirection: 'row' }}>
-            <Image source={item.image} style={{ width: 30, height: 30 }}></Image>
-            <View style={{ marginLeft: 5 }}>
-              <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 14 }}>
-                {item.name}
-              </Text>
-              <Text style={{ color: 'white', fontSize: 10 }}>{item.email}</Text>
-            </View>
-          </View>
-        </View>
-        <View>
-          <Text style={{ color: 'white', fontSize: 10, marginTop: 5 }}>
-            {item.discription}
-          </Text>
-        </View>
-        <View
-          style={{ marginTop: 5, flexDirection: 'row', alignItems: 'center' }}>
-          <Image source={TimeLogo} style={{ width: 12, height: 12 }}></Image>
-          <Text style={{ color: 'white', fontSize: 11, marginLeft: 5 }}>
-            {item.datetime}
-          </Text>
-        </View>
-      </View>
-    ) : (
-      <></>
-    );
-  };
 
   const GoalItem = item => (
     <View
@@ -145,66 +43,17 @@ const UITest = () => {
         borderRadius: 5,
         padding: 10,
       }}>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-        <Text style={{ color: 'white', fontSize: 14 }}>{item.title}</Text>
-        <Text style={{ color: 'white', fontSize: 12 }}>{item.time}</Text>
+      <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+        <Text style={{color: 'white', fontSize: 14}}>{item.title}</Text>
+        <Text style={{color: 'white', fontSize: 12}}>{item.time}</Text>
       </View>
-      <Text style={{ color: 'white', fontSize: 14 }}>{item.desc}</Text>
+      <Text style={{color: 'white', fontSize: 14}}>{item.desc}</Text>
     </View>
   );
-  const Tab1 = () => (
-    <View style={{ backgroundColor: '#0D2A3F' }}>
-      <View style={{ flexDirection: 'row', marginTop: 20 }}>
-        <View
-          style={{
-            backgroundColor: '#50c833',
-            width: 3,
-            borderRadius: 3,
-          }}></View>
-        <Text
-          style={{
-            color: 'white',
-            fontSize: 16,
-            fontWeight: 'bold',
-            marginLeft: 8,
-          }}>
-          Explore
-        </Text>
-      </View>
-      <FlatList
-        data={data}
-        renderItem={({ item, index }) => MsgItem(item, index)}
-      />
-    </View>
-  );
-  const Tab2 = () => (
-    <View>
-      <View style={{ marginTop: 20, flexDirection: 'row' }}>
-        <View
-          style={{
-            backgroundColor: '#50c833',
-            width: 3,
-            borderRadius: 3,
-          }}></View>
-        <Text
-          style={{
-            color: 'white',
-            fontSize: 16,
-            fontWeight: 'bold',
-            marginLeft: 8,
-          }}>
-          Selected Explore
-        </Text>
-      </View>
-      <FlatList
-        data={data}
-        renderItem={({ item, index }) => MsgItem2(item, index)}
-      />
-    </View>
-  );
+
   const Tab3 = () => (
     <View>
-      <View style={{ marginTop: 20, flexDirection: 'row' }}>
+      <View style={{marginTop: 20, flexDirection: 'row'}}>
         <View
           style={{
             backgroundColor: '#50c833',
@@ -221,8 +70,8 @@ const UITest = () => {
           Add Todo's
         </Text>
       </View>
-      <View style={{ marginTop: 20, flexDirection: 'column' }}>
-        <Text style={{ color: 'white', fontSize: 14 }}>Title</Text>
+      <View style={{marginTop: 20, flexDirection: 'column'}}>
+        <Text style={{color: 'white', fontSize: 14}}>Title</Text>
         <TextInput
           placeholder="Enter Title"
           placeholderTextColor="#8e9aad"
@@ -231,8 +80,8 @@ const UITest = () => {
           style={styles.goalTextInput}
         />
       </View>
-      <View style={{ flexDirection: 'column', marginTop: 20 }}>
-        <Text style={{ color: 'white', fontSize: 14 }}>Description</Text>
+      <View style={{flexDirection: 'column', marginTop: 20}}>
+        <Text style={{color: 'white', fontSize: 14}}>Description</Text>
         <TextInput
           placeholder="Enter Description"
           placeholderTextColor="#8e9aad"
@@ -254,26 +103,29 @@ const UITest = () => {
           }}
           onPress={() => {
             const date = new Date();
-            const AmPm = date.getHours() > 12 ? "PM" : "AM"
-            const time = `${date.getHours() % 12} : ${date.getMinutes()} ${AmPm}`;
-            setlist(prev => [...prev, { title: title, desc: desc, time: time }]);
+            const AmPm = date.getHours() > 12 ? 'PM' : 'AM';
+            const time = `${
+              date.getHours() % 12
+            } : ${date.getMinutes()} ${AmPm}`;
+            setlist(prev => [...prev, {title: title, desc: desc, time: time}]);
             setTitle('');
             setDesc('');
-            console.log("Time", time, AmPm)
+            console.log('Time', time, AmPm);
             console.log('Title', title);
             console.log('Desc', desc);
             // console.log(list);
           }}>
-          <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>
+          <Text style={{color: 'white', fontSize: 16, fontWeight: 'bold'}}>
             ADD
           </Text>
         </TouchableOpacity>
       </View>
     </View>
   );
+
   const Tab4 = () => (
     <View>
-      <View style={{ marginTop: 20, flexDirection: 'row' }}>
+      <View style={{marginTop: 20, flexDirection: 'row'}}>
         <View
           style={{
             backgroundColor: '#50c833',
@@ -290,37 +142,28 @@ const UITest = () => {
           Todo's
         </Text>
       </View>
-      <View style={{ marginVertical: 10 }}>
-        <FlatList scrollEnabled={true} data={list} renderItem={({ item }) => GoalItem(item)} />
+      <View style={{marginVertical: 10}}>
+        <FlatList
+          scrollEnabled={true}
+          data={list}
+          renderItem={({item}) => GoalItem(item)}
+        />
       </View>
     </View>
   );
-  const radientBg = () => {
-    return (
-      <View style={{ flex: 1 }}>
-        <LinearGradient
-          colors={['#4c669f', '#3b5998', '#192f6a']}
-          style={{ padding: 15, alignItems: 'center', borderRadius: 5 }}>
-          <Text
-            style={{
-              backgroundColor: 'transparent',
-              fontSize: 15,
-              color: '#fff',
-            }}>
-            Sign in with Facebook
-          </Text>
-        </LinearGradient></View>);
-  };
+
   return (
-    <View style={{ backgroundColor: '#0d2b3f', flex: 1 }}>
-      <View style={{ marginTop: 25, paddingHorizontal: 20 }}>
-        <Text style={{ color: 'white', fontSize: 30, fontWeight: 'bold' }}>
+    <View style={{backgroundColor: '#0d2b3f', flex: 1}}>
+      {/* Let's make today */}
+      <View style={{marginTop: 25, paddingHorizontal: 20}}>
+        <Text style={{color: 'white', fontSize: 30, fontWeight: 'bold'}}>
           Let's make today
         </Text>
-        <Text style={{ color: 'white', fontSize: 30, fontWeight: 'bold' }}>
+        <Text style={{color: 'white', fontSize: 30, fontWeight: 'bold'}}>
           count
         </Text>
       </View>
+      {/* June 30th,2022 */}
       <View
         style={{
           marginTop: 25,
@@ -329,17 +172,17 @@ const UITest = () => {
           justifyContent: 'space-between',
         }}>
         <View>
-          <Text style={{ color: 'white', fontSize: 14 }}>June 30th,2022</Text>
-          <Text style={{ color: 'white', fontSize: 12 }}>Welcome Back!</Text>
+          <Text style={{color: 'white', fontSize: 14}}>June 30th,2022</Text>
+          <Text style={{color: 'white', fontSize: 12}}>Welcome Back!</Text>
         </View>
-        <Image source={UserImage} style={{ height: 40, width: 40 }}></Image>
+        <Image source={UserImage} style={{height: 40, width: 40}}></Image>
       </View>
-      <View
-      >
+      {/* Cameron Williamson */}
+      <View>
         <LinearGradient
-          colors={isEnabled ? ['#3b5333', '#0b4c4e'] : ["#334b5f", '#334b5f']}
+          colors={isEnabled ? ['#3b5333', '#0b4c4e'] : ['#334b5f', '#334b5f']}
           style={{
-            backgroundColor: isEnabled ? "#0b4c4e" : '#334b5f',
+            backgroundColor: isEnabled ? '#0b4c4e' : '#334b5f',
             borderRadius: 10,
             marginTop: 20,
             marginHorizontal: 20,
@@ -348,13 +191,13 @@ const UITest = () => {
             justifyContent: 'space-between',
           }}>
           <View>
-            <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 16 }}>
+            <Text style={{color: 'white', fontWeight: 'bold', fontSize: 16}}>
               Cameron Williamson
             </Text>
-            <Text style={{ color: 'white', fontSize: 12, marginTop: 5 }}>
+            <Text style={{color: 'white', fontSize: 12, marginTop: 5}}>
               +91 9876543210
             </Text>
-            <Text style={{ color: '#50c833', fontSize: 12, marginTop: 5 }}>
+            <Text style={{color: '#50c833', fontSize: 12, marginTop: 5}}>
               Rs. 10,000.00
             </Text>
           </View>
@@ -367,94 +210,10 @@ const UITest = () => {
           </View>
         </LinearGradient>
       </View>
-      {/* <View
-        style={{
-          margin: 20,
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-        }}>
-        <View style={styles.tabView}>
-          <TouchableOpacity
-            style={[
-              styles.tabTouchable,
-              {backgroundColor: btnNo == 0 ? '#50c833' : '#334b5f'},
-            ]}
-            onPress={() => {
-              setbtnNo(0);
-            }}>
-            <Image
-              source={Tab1Image}
-              style={[
-                styles.tabImage,
-                {tintColor: btnNo == 0 ? 'white' : '#8e9aad'},
-              ]}></Image>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.tabView}>
-          <TouchableOpacity
-            style={[
-              styles.tabTouchable,
-              {backgroundColor: btnNo == 1 ? '#50c833' : '#334b5f'},
-            ]}
-            onPress={() => {
-              setbtnNo(1);
-            }}>
-            <Image
-              source={Tab2Image}
-              style={[
-                styles.tabImage,
-                {tintColor: btnNo == 1 ? 'white' : '#8e9aad'},
-              ]}></Image>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.tabView}>
-          <TouchableOpacity
-            style={[
-              styles.tabTouchable,
-              {backgroundColor: btnNo == 2 ? '#50c833' : '#334b5f'},
-            ]}
-            onPress={() => {
-              setbtnNo(2);
-            }}>
-            <Image
-              source={Tab3Image}
-              style={[
-                styles.tabImage,
-                {tintColor: btnNo == 2 ? 'white' : '#8e9aad'},
-              ]}></Image>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.tabView}>
-          <TouchableOpacity
-            style={[
-              styles.tabTouchable,
-              {backgroundColor: btnNo == 3 ? '#50c833' : '#334b5f'},
-            ]}
-            onPress={() => {
-              setbtnNo(3);
-            }}>
-            <Image
-              source={Tab4Image}
-              style={[
-                styles.tabImage,
-                {tintColor: btnNo == 3 ? 'white' : '#8e9aad'},
-              ]}></Image>
-          </TouchableOpacity>
-        </View>
-      </View> */}
-      {/* {btnNo == 0 ? (
-        <Tab1 />
-      ) : btnNo == 1 ? (
-        <Tab2 />
-      ) : btnNo == 2 ? (
-        <Tab3 />
-      ) : (
-        <Tab4 />
-      )} */}
-
-      <View style={{ flex: 1, marginHorizontal: 20, marginTop: 5 }}>
+      {/* Tab Navigation */}
+      <View style={{flex: 1, marginHorizontal: 20, marginTop: 5}}>
         <Tab.Navigator
-          sceneContainerStyle={{ backgroundColor: '#0D2A3F' }}
+          sceneContainerStyle={{backgroundColor: '#0D2A3F'}}
           screenOptions={{
             tabBarStyle: {
               backgroundColor: '#0D2A3F',
@@ -465,24 +224,24 @@ const UITest = () => {
               backgroundColor: 'transparent',
             },
             tabBarShowLabel: false,
-            tabBarContentContainerStyle: { height: 110 },
+            tabBarContentContainerStyle: {height: 110},
           }}>
           <Tab.Screen
             name="Explore"
             component={Tab1}
             options={() => ({
-              tabBarIcon: ({ focused }) => {
+              tabBarIcon: ({focused}) => {
                 return (
                   <View
                     style={[
                       styles.tabTouchable,
-                      { backgroundColor: focused ? '#50c833' : '#334b5f' },
+                      {backgroundColor: focused ? '#50c833' : '#334b5f'},
                     ]}>
                     <Image
                       source={Tab1Image}
                       style={[
                         styles.tabImage,
-                        { tintColor: focused ? 'white' : '#8e9aad' },
+                        {tintColor: focused ? 'white' : '#8e9aad'},
                       ]}></Image>
                   </View>
                 );
@@ -493,12 +252,12 @@ const UITest = () => {
             name="SelExplore"
             component={Tab2}
             options={() => ({
-              tabBarIcon: ({ focused }) => {
+              tabBarIcon: ({focused}) => {
                 return (
                   <View
                     style={[
                       styles.tabTouchable,
-                      { backgroundColor: focused ? '#50c833' : '#334b5f' },
+                      {backgroundColor: focused ? '#50c833' : '#334b5f'},
                     ]}
                     onPress={() => {
                       setbtnNo(1);
@@ -507,7 +266,7 @@ const UITest = () => {
                       source={Tab2Image}
                       style={[
                         styles.tabImage,
-                        { tintColor: focused ? 'white' : '#8e9aad' },
+                        {tintColor: focused ? 'white' : '#8e9aad'},
                       ]}></Image>
                   </View>
                 );
@@ -518,12 +277,12 @@ const UITest = () => {
             name="AddToDo"
             component={Tab3}
             options={() => ({
-              tabBarIcon: ({ focused }) => {
+              tabBarIcon: ({focused}) => {
                 return (
                   <View
                     style={[
                       styles.tabTouchable,
-                      { backgroundColor: focused ? '#50c833' : '#334b5f' },
+                      {backgroundColor: focused ? '#50c833' : '#334b5f'},
                     ]}
                     onPress={() => {
                       setbtnNo(2);
@@ -532,7 +291,7 @@ const UITest = () => {
                       source={Tab3Image}
                       style={[
                         styles.tabImage,
-                        { tintColor: focused ? 'white' : '#8e9aad' },
+                        {tintColor: focused ? 'white' : '#8e9aad'},
                       ]}></Image>
                   </View>
                 );
@@ -543,12 +302,12 @@ const UITest = () => {
             name="ToDo"
             component={Tab4}
             options={() => ({
-              tabBarIcon: ({ focused }) => {
+              tabBarIcon: ({focused}) => {
                 return (
                   <View
                     style={[
                       styles.tabTouchable,
-                      { backgroundColor: focused ? '#50c833' : '#334b5f' },
+                      {backgroundColor: focused ? '#50c833' : '#334b5f'},
                     ]}
                     onPress={() => {
                       setbtnNo(3);
@@ -557,7 +316,7 @@ const UITest = () => {
                       source={Tab4Image}
                       style={[
                         styles.tabImage,
-                        { tintColor: focused ? 'white' : '#8e9aad' },
+                        {tintColor: focused ? 'white' : '#8e9aad'},
                       ]}></Image>
                   </View>
                 );
@@ -590,15 +349,7 @@ const styles = StyleSheet.create({
     width: 20,
     zIndex: 2,
   },
-  msgView: {
-    backgroundColor: '#334b5f',
-    borderRadius: 10,
-    marginTop: 20,
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-  },
+
   goalTextInput: {
     borderRadius: 4,
     borderWidth: 1,
@@ -612,7 +363,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingLeft: 15,
     paddingRight: 15,
-    borderRadius: 5
+    borderRadius: 5,
   },
   buttonText: {
     fontSize: 18,

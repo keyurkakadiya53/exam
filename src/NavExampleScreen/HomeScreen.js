@@ -5,15 +5,56 @@ import {
   Text,
   TouchableOpacity,
   View,
+  ActivityIndicator,
 } from 'react-native';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {RFValue} from 'react-native-responsive-fontsize';
 import axios from 'axios';
+import LoginContext from '../../store/context/login-context';
+import {useDispatch, useSelector} from 'react-redux';
+import {setSecondFalse, setSecondTrue} from '../../store/redux/action';
+import {fetchData} from '../../store/reduxSaga/actionSaga';
+import {getUserRequest} from '../../store/reduxSaga/actionSaga';
 
 const HomeScreen = () => {
   const [data, setData] = useState([]);
+  // const loginCtx = useContext(LoginContext);
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.user);
+  console.log('users using saga api = ', user);
+  const isLoading = user.isLoading;
+  console.log('isLoading.. : ', isLoading);
+  const error = useSelector(state => state.user.error);
 
-  const fetchData = () => {
+  // const state = useSelector(state => state);
+  // const second = state.second;
+  // const second = loginCtx.secondValue;
+  const fetchDataReduxSaga = () => {
+    dispatch(getUserRequest());
+  };
+
+  function changeSecondHandlerContext() {
+    console.log('on press : ');
+    if (second) {
+      loginCtx.setSecondFalse();
+      console.log('changeSecondHandler2 called', second);
+    } else {
+      loginCtx.setSecondTrue();
+      console.log('changeSecondHandler2 called', second);
+    }
+  }
+
+  function changeSecondHandlerRedux() {
+    console.log('on press(redux) : ', second);
+    if (second) {
+      dispatch(setSecondFalse());
+      console.log('on press34', second);
+    } else {
+      dispatch(setSecondTrue());
+    }
+  }
+
+  const getUsersFetch = () => {
     // const data=await fetch("https://jsonplaceholder.typicode.com/users");
     // const json=await data.json();
     // console.log(json);
@@ -26,10 +67,6 @@ const HomeScreen = () => {
       .catch(error => console.error('get using fetch', error));
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   const fetchDataAxios = () => {
     axios
       .get('https://jsonplaceholder.typicode.com/users')
@@ -40,7 +77,7 @@ const HomeScreen = () => {
       .catch(error => console.error('get using axios', error));
   };
 
-  const addData = (name, email) => {
+  const addDataFetch = (name, email) => {
     fetch('https://jsonplaceholder.typicode.com/users', {
       method: 'POST',
       body: {
@@ -73,9 +110,12 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
+      {isLoading && <ActivityIndicator size="small" color="#0000ff" />}
       <Text style={styles.text}>HomeScreen</Text>
+      <Button title="Click Me!" onPress={fetchDataReduxSaga}></Button>
+
       <FlatList
-        data={data}
+        data={user.data}
         renderItem={data => {
           return (
             <TouchableOpacity
@@ -83,12 +123,12 @@ const HomeScreen = () => {
                 margin: RFValue(10),
                 backgroundColor: 'white',
                 padding: RFValue(10),
-              }}
-              onPress={() => {
-                addData(data.item.name, data.item.email);
+                // }}
+                // onPress={() => {
+                //   addData(data.item.name, data.item.email);
               }}>
-              <Text style={styles.text}>{data.item.name}</Text>
-              <Text style={styles.text}>{data.item.email}</Text>
+              <Text style={styles.text}>Name: {data.item.name}</Text>
+              <Text style={styles.text}>Email: {data.item.email}</Text>
             </TouchableOpacity>
           );
         }}
@@ -106,7 +146,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   text: {
-    fontSize: RFValue(18),
+    fontSize: RFValue(14),
     color: 'black',
   },
 });
