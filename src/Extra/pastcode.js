@@ -1,5 +1,6 @@
 //  In UITest tabBar using condition
- {/* <View
+{
+  /* <View
         style={{
           margin: 20,
           flexDirection: 'row',
@@ -73,8 +74,10 @@
               ]}></Image>
           </TouchableOpacity>
         </View>
-      </View> */}
-      {/* {btnNo == 0 ? (
+      </View> */
+}
+{
+  /* {btnNo == 0 ? (
         <Tab1 />
       ) : btnNo == 1 ? (
         <Tab2 />
@@ -82,4 +85,32 @@
         <Tab3 />
       ) : (
         <Tab4 />
-      )} */}
+      )} */
+}
+
+
+//In msgItem for chechbox
+{
+  /* value={item.ischecked}
+      onValueChange={val => {
+        if (val) {
+          dispatch(addExploreToSelected({...item, ischecked: true}));
+          dispatch(setExploreChecked(item));
+        } else {
+          dispatch(removeExploreToSelected(item));
+        }
+      }}
+      tintColor="white"
+      isChecked={item.ischecked}
+      onValueChange={() => {
+        // dispatch(addExploreToSelected(item));
+        setdata(prev => {
+          return prev.map((val, i) => {
+            console.log(i == index);
+            return i == index ? {...val, ischecked: !val.ischecked} : val;
+          });
+        });
+      }}
+      checkBoxColor="white"
+    */
+}

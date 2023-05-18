@@ -1,41 +1,50 @@
 import {StyleSheet, View, Text, Image, FlatList} from 'react-native';
 import React, {useEffect} from 'react';
 import TimeLogo from './../../../assets/images/timeLogo.png';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 
 const Tab2 = () => {
-  const mySelectedExplores = useSelector(state => state.selectedExplore);
-  console.log('added selected explores', mySelectedExplores);
+  // const mySelectedExplores = useSelector(state => state.selectedExplore);
+  // console.log('added selected explores', mySelectedExplores);
+  // const dispatch = useDispatch();
+  const user = useSelector(state => state.user);
+  // console.log('added selected explores', user.data);
 
   const MsgItem2 = (item, index) => {
-    // console.log('item', item);
-    return  (
-      <View style={styles.msgView}>
-        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-          <View style={{flexDirection: 'row'}}>
-            <Image source={item.image} style={{width: 30, height: 30}}></Image>
-            <View style={{marginLeft: 5}}>
-              <Text style={{color: 'white', fontWeight: 'bold', fontSize: 14}}>
-                {item.name}
-              </Text>
-              <Text style={{color: 'white', fontSize: 10}}>{item.email}</Text>
+    return (
+      item.ischecked && (
+        <View style={styles.msgView}>
+          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+            <View style={{flexDirection: 'row'}}>
+              <Image
+                source={{uri: item.user.profile}}
+                style={{width: 30, height: 30}}></Image>
+              <View style={{marginLeft: 5}}>
+                <Text
+                  style={{color: 'white', fontWeight: 'bold', fontSize: 14}}>
+                  {item.user.name}
+                </Text>
+                <Text style={{color: 'white', fontSize: 10}}>
+                  {item.descriptions}
+                </Text>
+              </View>
             </View>
           </View>
+          <View>
+            <Text style={{color: 'white', fontSize: 10, marginTop: 5}}>
+              {item.hashtags}
+            </Text>
+          </View>
+          <View
+            style={{marginTop: 5, flexDirection: 'row', alignItems: 'center'}}>
+            <Image source={TimeLogo} style={{width: 12, height: 12}}></Image>
+            <Text style={{color: 'white', fontSize: 11, marginLeft: 5}}>
+              {item.date_time}
+            </Text>
+          </View>
         </View>
-        <View>
-          <Text style={{color: 'white', fontSize: 10, marginTop: 5}}>
-            {item.discription}
-          </Text>
-        </View>
-        <View
-          style={{marginTop: 5, flexDirection: 'row', alignItems: 'center'}}>
-          <Image source={TimeLogo} style={{width: 12, height: 12}}></Image>
-          <Text style={{color: 'white', fontSize: 11, marginLeft: 5}}>
-            {item.datetime}
-          </Text>
-        </View>
-      </View>
-    )
+      )
+    );
   };
 
   return (
@@ -58,7 +67,7 @@ const Tab2 = () => {
         </Text>
       </View>
       <FlatList
-        data={mySelectedExplores}
+        data={user.data}
         renderItem={({item, index}) => MsgItem2(item, index)}
       />
     </View>

@@ -1,7 +1,8 @@
 import {call, put, takeEvery, takeLatest} from 'redux-saga/effects';
 import {GET_USER_REQUEST, getUserSuccess, getUserFailure} from './actionSaga';
+import axios from 'axios';
 
-const API_URL = 'https://jsonplaceholder.typicode.com/users/';
+const API_URL = 'https://unikwork.com/instagram/api/get_data.php';
 
 const fetchUser = async () => {
   const response = await fetch(API_URL);
@@ -9,10 +10,16 @@ const fetchUser = async () => {
   return data;
 };
 
+const fetchUserAxios = async () => {
+  const apiData = await axios.get(API_URL);
+  // console.log('qowiugjhfvdsja', apiData.data);
+  return apiData.data;
+};
+
 function* getUser() {
   try {
-    const user = yield call(fetchUser);
-    console.log("usr......",user);
+    const user = yield call(fetchUserAxios);
+    // console.log('user......', user);
     yield put(getUserSuccess(user));
   } catch (error) {
     yield put(getUserFailure(error.message));

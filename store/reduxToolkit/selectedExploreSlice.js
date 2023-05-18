@@ -5,6 +5,7 @@ const selectedExploreSlice = createSlice({
   initialState: [],
   reducers: {
     addExploreToSelected(state, action) {
+      console.log('dfghjk', state);
       state.push(action.payload);
     },
     removeExploreFromSelected(state, action) {

@@ -15,16 +15,19 @@ import {useDispatch, useSelector} from 'react-redux';
 import {setSecondFalse, setSecondTrue} from '../../store/redux/action';
 import {fetchData} from '../../store/reduxSaga/actionSaga';
 import {getUserRequest} from '../../store/reduxSaga/actionSaga';
+import Permissions, {
+  requestCameraPermission,
+  requestLocationPermission,
+} from '../screens/permissions';
+import {useNavigation} from '@react-navigation/native';
 
 const HomeScreen = () => {
+  const navigation = useNavigation();
   const [data, setData] = useState([]);
   // const loginCtx = useContext(LoginContext);
   const dispatch = useDispatch();
-  const user = useSelector(state => state.user);
-  console.log('users using saga api = ', user);
-  const isLoading = user.isLoading;
-  console.log('isLoading.. : ', isLoading);
-  const error = useSelector(state => state.user.error);
+  // const user = useSelector(state => state.user);
+  // const isLoading = user.isLoading;
 
   // const state = useSelector(state => state);
   // const second = state.second;
@@ -110,29 +113,32 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
-      {isLoading && <ActivityIndicator size="small" color="#0000ff" />}
       <Text style={styles.text}>HomeScreen</Text>
-      <Button title="Click Me!" onPress={fetchDataReduxSaga}></Button>
+      <Button
+        title="Get Current Location"
+        onPress={() => {
+          navigation.navigate('Permissions');
+        }}></Button>
 
-      <FlatList
-        data={user.data}
-        renderItem={data => {
-          return (
-            <TouchableOpacity
-              style={{
-                margin: RFValue(10),
-                backgroundColor: 'white',
-                padding: RFValue(10),
-                // }}
-                // onPress={() => {
-                //   addData(data.item.name, data.item.email);
-              }}>
-              <Text style={styles.text}>Name: {data.item.name}</Text>
-              <Text style={styles.text}>Email: {data.item.email}</Text>
-            </TouchableOpacity>
-          );
-        }}
-        keyExtractor={data => data.id.toString()}></FlatList>
+      {/* <FlatList
+//         data={user.data}
+//         renderItem={data => {
+//           return (
+//             <TouchableOpacity
+//               style={{
+//                 margin: RFValue(10),
+//                 backgroundColor: 'white',
+//                 padding: RFValue(10),
+//                 // }}
+//                 // onPress={() => {
+//                 //   addData(data.item.name, data.item.email);
+//               }}>
+//               <Text style={styles.text}>Name: {data.item.name}</Text>
+//               <Text style={styles.text}>Email: {data.item.email}</Text>
+//             </TouchableOpacity>
+//           );
+//         }}
+//         keyExtractor={data => data.id.toString()}></FlatList> */}
     </View>
   );
 };

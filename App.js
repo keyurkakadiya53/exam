@@ -30,6 +30,8 @@ import {useSelector} from 'react-redux';
 import {reducer} from './store/redux/reducer';
 import {myStore} from './store/reduxToolkit/myStore';
 import store from './store/reduxSaga/storeSaga';
+import Permissions from './src/screens/permissions';
+
 
 const Drawer = createDrawerNavigator();
 
@@ -47,6 +49,7 @@ const MyDrawer = () => {
       <Drawer.Screen name="HomeScreen2" component={HomeScreen2} />
       <Drawer.Screen name="HSA" component={HSA} />
       <Drawer.Screen name="DisCard" component={DisCard} />
+      <Drawer.Screen name="Permissions" component={Permissions} />
     </Drawer.Navigator>
   );
 };
@@ -71,8 +74,6 @@ const XYZ = () => {
   const [second, setSecond] = useState(true);
   // const state = useSelector(state => state);
   // const second = state.second;
-
-  console.log('App.js (redux)', second);
 
   // function setSecondTrue() {
   //   setSecond(true);
@@ -149,7 +150,7 @@ const XYZ = () => {
             },
           }}>
           <Tab.Screen
-            name="HomeScreen2"
+            name="MyDrawer"
             component={MyDrawer}
             options={() => ({
               tabBarIcon: ({focused}) => {
@@ -265,10 +266,10 @@ const XYZ = () => {
             animationEnabled: true,
             cardStyleInterpolator: forSlide,
           }}>
+          <Stack.Screen name="Home" component={UITest} />
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="DrawerNavExp" component={DrawerNavExp} />
-          <Stack.Screen name="Home" component={UITest} />
         </Stack.Navigator>
       )}
     </NavigationContainer>
